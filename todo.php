@@ -33,7 +33,7 @@ do {
         // Remove from array
         unset($items[$key-1]);
 
-        usort($items, 'strnatcmp');
+        $items = array_values($items);
     }
 // Exit when input is (Q)uit
 } while ($input != 'Q');
