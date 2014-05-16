@@ -1,7 +1,6 @@
 <?php
 
 // Create array to hold list of todo items
-// Create array to hold list of todo items
 $items = array();
 
 // List array items formatted for CLI
@@ -18,9 +17,6 @@ function list_items($array)
     return $list;
 
 }
-
-
-
 
 // Get STDIN, strip whitespace and newlines, 
 // and convert to uppercase if $upper is true
