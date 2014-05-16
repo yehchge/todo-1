@@ -11,7 +11,7 @@ function list_items($array)
     foreach($array as $key => $value) {
         $key++;
         // Display each item and a newline
-        $list .= "[{$key}] {$value}\n";
+        $list .= "[{$key}] {$value}\n"; // $list = $list . "hello\n";
     }
     
     return $list;
@@ -23,11 +23,8 @@ function list_items($array)
 
 function get_input($upper = FALSE) 
 {
-    if($upper) {
-        return strtoupper(trim(fgets(STDIN)));
-    } else {
-        return trim(fgets(STDIN));
-    }
+    $result = trim(fgets(STDIN));
+    return $upper ? strtoupper($result) : $result ;
 }
 
 
@@ -40,7 +37,7 @@ do {
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
-    $input = strtoupper(get_input(true));
+    $input = get_input(true);
 
     // Check for actionable input
     if ($input == 'N') {
