@@ -9,9 +9,8 @@ function list_items($array)
     $list = '';
     
     foreach($array as $key => $value) {
-        $key++;
         // Display each item and a newline
-        $list .= "[{$key}] {$value}\n"; // $list = $list . "hello\n";
+        $list .= "[" . ($key + 1) . "] {$value}\n"; // $list = $list . "hello\n";
     }
     
     return $list;
@@ -24,7 +23,7 @@ function list_items($array)
 function get_input($upper = FALSE) 
 {
     $result = trim(fgets(STDIN));
-    return $upper ? strtoupper($result) : $result ;
+    return $upper ? strtoupper($result) : $result;
 }
 
 
