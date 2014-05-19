@@ -8,18 +8,24 @@ function list_items($array){
     $list = '';
     
     foreach($array as $key => $value) {
+
         // Display each item and a newline
         $list .= "[" . ($key + 1) . "] {$value}\n"; // $list = $list . "hello\n";
+    
     }   
     return $list;
+
 }
 
 // Get STDIN, strip whitespace and newlines, 
 // and convert to uppercase if $upper is true
 
 function get_input($upper = FALSE) {
+
     $result = trim(fgets(STDIN));
+    
     return $upper ? strtoupper($result) : $result;
+
 }
 
 function sort_menu($array) {
@@ -30,10 +36,10 @@ function sort_menu($array) {
 
         switch ($input) {
             case 'A':
-                sort($array);
+                asort($array);
                 break;
             case 'Z':
-                rsort($array);
+                arsort($array);
                 break;
             case 'O':
                 ksort($array);
@@ -42,9 +48,25 @@ function sort_menu($array) {
                 krsort($array);
                 break;
         }
+        
         return $array;
 
+}
 
+function choose_place($array, $new_Item) {
+    
+    echo 'Would you like to add to the (B)eginning or the (E)nd: ';
+    
+    $result = get_input(true);
+    if($result == 'B') {
+        array_unshift($array, $new_Item);
+    } elseif ($result == 'E') {
+        array_push($array, $new_Item);
+    } elseif(empty($reults)) {
+        array_push($array, $new_Item);
+    }
+    
+    return $array;
 }
 
 
@@ -64,7 +86,9 @@ do {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        $items[] = get_input();
+        $new_Item = get_input();
+        $items = choose_place($items,$new_Item);
+
     } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
