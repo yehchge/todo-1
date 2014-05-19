@@ -100,7 +100,12 @@ do {
         $items = array_values($items);
     } elseif ($input == 'S') {
         $items = sort_menu($items);
+    } elseif ($input == 'F') {
+        array_shift($items);
+    } elseif ($input =='L') {
+        array_pop($items);
     }
+    
 // Exit when input is (Q)uit
 } while ($input != 'Q');
 
