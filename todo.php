@@ -20,7 +20,7 @@ function list_items($array){
 // Get STDIN, strip whitespace and newlines, 
 // and convert to uppercase if $upper is true
 
-function get_input($upper = FALSE) {
+function get_input($upper = false) {
 
     $result = trim(fgets(STDIN));
     
@@ -28,6 +28,7 @@ function get_input($upper = FALSE) {
 
 }
 
+// function to sort menu
 function sort_menu($array) {
 
         echo '(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ';
@@ -36,15 +37,19 @@ function sort_menu($array) {
 
         switch ($input) {
             case 'A':
+                //sort alphabetically
                 asort($array);
                 break;
             case 'Z':
+                //sort reverse alphabetically
                 arsort($array);
                 break;
             case 'O':
+                //sort by original key value
                 ksort($array);
                 break;
             case 'R':
+                //sort by reverse key value
                 krsort($array);
                 break;
         }
@@ -53,6 +58,7 @@ function sort_menu($array) {
 
 }
 
+//allow user to choose to append or prepend.
 function choose_place($array, $new_Item) {
     
     echo 'Would you like to add to the (B)eginning or the (E)nd: ';
@@ -62,7 +68,7 @@ function choose_place($array, $new_Item) {
         array_unshift($array, $new_Item);
     } elseif ($result == 'E') {
         array_push($array, $new_Item);
-    } elseif(empty($reults)) {
+    } elseif(empty($result)) {
         array_push($array, $new_Item);
     }
     
