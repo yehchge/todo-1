@@ -75,13 +75,30 @@ function choose_place($array, $new_Item) {
     return $array;
 }
 
+function import_list() {
+
+    $filename = 'data/list.txt';
+
+    $filesize = filesize($filename);
+
+    $read = fopen($filename, 'r');
+
+    $list_string = fread($read, $filesize);
+
+    $list = explode("\n", $list_string);
+
+    return $list;
+
+    fclose($read);
+}
+
 
 // The loop!
 do {
 
     echo list_items($items);
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort items, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort items, (I)mport list, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -102,14 +119,19 @@ do {
         $key = get_input();
         // Remove from array
         unset($items[$key-1]);
-        //reset index counter
-        $items = array_values($items);
+        //reset index counter (optional)
+        //$items = array_values($items);
     } elseif ($input == 'S') {
         $items = sort_menu($items);
     } elseif ($input == 'F') {
         array_shift($items);
-    } elseif ($input =='L') {
+    } elseif ($input == 'L') {
         array_pop($items);
+    } elseif ($input == 'I') {
+        $new_items = import_list();
+        foreach ($new_items as $item) {
+            array_push($items, $item);
+        }
     }
     
 // Exit when input is (Q)uit
