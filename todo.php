@@ -95,12 +95,59 @@ function open_file() {
         fclose($read);
     } else {
 
-        echo 'File is not readable!' . PHP_EOL;
+        echo 'File is not readable.' . PHP_EOL;
 
     } 
 
     return $list;
 }
+
+
+
+function save($list, $file) {
+
+    $write = fopen($file, 'w');
+
+    $string = implode("\n", $list);
+        
+    fwrite($write, $string . "\n");
+        
+    fclose($write);
+
+    echo "The save was succsesful.\n";
+
+}
+
+
+
+function save_list($list, $file) {
+    
+    $filename = $file;
+
+    if(file_exists($filename)){
+
+        fwrite(STDOUT, "The file you are attempting to write already exists. Would you like to overwrite? (Y)es or (N)o?: ");
+
+        $choice = get_input(true);
+
+        if($choice == 'Y'){
+       
+            save($list, $filename);
+
+        } else {
+
+            fwrite(STDOUT, "Save aborted.");
+
+        }
+
+    } else {
+            
+          save($list, $filename);         
+        
+    }
+}
+
+
 
 
 // The loop!
@@ -140,6 +187,12 @@ do {
     } elseif ($input == 'O') {
         $new_items = open_file();
         $items = array_merge($items,$new_items);
+    } elseif($input == 'A') {
+        
+        fwrite(STDOUT, 'What file would you like to save to?: ');
+        $filename = get_input();
+        save_list($items, $filename);
+
     }
     
 // Exit when input is (Q)uit
