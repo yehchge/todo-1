@@ -34,16 +34,16 @@ function sort_menu($array) {
         echo '(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ';
 
         $input = get_input(true);
-        $sort_mod = SORT_NATURAL | SORT_FLAG_CASE;
+        $sort_mode = SORT_NATURAL | SORT_FLAG_CASE;
 
         switch ($input) {
             case 'A':
                 //sort alphabetically
-                asort($array, $sort_mod);
+                asort($array, $sort_mode);
                 break;
             case 'Z':
                 //sort reverse alphabetically
-                arsort($array, $sort_mod);
+                arsort($array, $sort_mode);
                 break;
             case 'O':
                 //sort by original key value
@@ -67,9 +67,7 @@ function choose_place($array, $new_Item) {
     $result = get_input(true);
     if($result == 'B') {
         array_unshift($array, $new_Item);
-    } elseif ($result == 'E') {
-        array_push($array, $new_Item);
-    } elseif(empty($result)) {
+    } elseif ($result == 'E' || empty($result)) {
         array_push($array, $new_Item);
     }
     
@@ -126,7 +124,7 @@ function choose_file($list, $file) {
 
     if(file_exists($filename)){
 
-        fwrite(STDOUT, "The file you are attempting to write already exists. Would you like to overwrite? (Y)es or (N)o?: ");
+        fwrite(STDOUT, "This file already exists. Would you like to overwrite? (Y)es or (N)o?: ");
 
         $choice = get_input(true);
 
@@ -136,7 +134,7 @@ function choose_file($list, $file) {
 
         } else {
 
-            fwrite(STDOUT, "Save aborted.");
+            fwrite(STDOUT, "Save aborted." . PHP_EOL);
 
         }
 
