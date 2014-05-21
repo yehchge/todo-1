@@ -74,73 +74,72 @@ function choose_place($array, $new_Item) {
     return $array;
 }
 
+// open in a file
 function open_file() {
 
     $filename = 'data/list.txt';
-
+    //initiate our array to dump
     $list = [];
 
     if (is_readable($filename)) {
-    
+        
         $filesize = filesize($filename);
-    
+        //open file to read
         $read = fopen($filename, 'r');
-    
+        //read file into string
         $list_string = trim(fread($read, $filesize));
-    
+        //turn string into array
         $list = explode("\n", $list_string);
-    
+        //close the file
         fclose($read);
     } else {
 
         echo 'File is not readable.' . PHP_EOL;
 
     } 
-
+    //dump the array
     return $list;
 }
 
 
-
+//save the list to a file
 function save($list, $file) {
-
+    //open the file for writing
     $write = fopen($file, 'w');
-
+    //turn the array into a string
     $string = implode("\n", $list);
-        
+    // write the string onto the file
     fwrite($write, $string . "\n");
-        
+    //close the file
     fclose($write);
-
-    echo "The save was succsesful.\n";
-
 }
 
 
-
+//where is it saving?
 function choose_file($list, $file) {
     
-    $filename = $file;
-
-    if(file_exists($filename)){
-
+    // does file exist already?
+    if(file_exists($file)){
+        
         fwrite(STDOUT, "This file already exists. Would you like to overwrite? (Y)es or (N)o?: ");
 
         $choice = get_input(true);
-
+        // do they want to overwrite?
         if($choice == 'Y'){
        
-            save($list, $filename);
+            save($list, $file);
+            echo "$file overwrite was succesful.\n";
 
         } else {
-
+            //cancel the save
             fwrite(STDOUT, "Save aborted." . PHP_EOL);
 
         }
 
     } else {
             
-          save($list, $filename);         
+          save($list, $file);
+          echo "New file $file was created.\n";        
         
     }
 }
@@ -177,16 +176,20 @@ do {
         //reset index counter (optional)
         //$items = array_values($items);
     } elseif ($input == 'S') {
+        //sort the list
         $items = sort_menu($items);
     } elseif ($input == 'F') {
+        //remove first item
         array_shift($items);
     } elseif ($input == 'L') {
+        //remove last item
         array_pop($items);
     } elseif ($input == 'O') {
+        //open a file
         $new_items = open_file();
         $items = array_merge($items,$new_items);
     } elseif($input == 'A') {
-        
+        //save the list
         fwrite(STDOUT, 'What file would you like to save to?: ');
         $filename = get_input();
         choose_file($items, $filename);
