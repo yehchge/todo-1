@@ -116,8 +116,11 @@ function save($list, $file) {
 
 
 //where is it saving?
-function choose_file($list, $file) {
+function save_file($list) {
     
+    fwrite(STDOUT, 'What file would you like to save to?: ');
+    $file = get_input();
+
     // does file exist already?
     if(file_exists($file)){
         
@@ -190,9 +193,7 @@ do {
         $items = array_merge($items,$new_items);
     } elseif($input == 'A') {
         //save the list
-        fwrite(STDOUT, 'What file would you like to save to?: ');
-        $filename = get_input();
-        choose_file($items, $filename);
+        save_file($items);
 
     }
     
