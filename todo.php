@@ -120,7 +120,7 @@ function save($list, $file) {
 
 
 
-function save_list($list, $file) {
+function choose_file($list, $file) {
     
     $filename = $file;
 
@@ -191,7 +191,7 @@ do {
         
         fwrite(STDOUT, 'What file would you like to save to?: ');
         $filename = get_input();
-        save_list($items, $filename);
+        choose_file($items, $filename);
 
     }
     
