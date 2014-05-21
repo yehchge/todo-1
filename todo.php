@@ -76,21 +76,30 @@ function choose_place($array, $new_Item) {
     return $array;
 }
 
-function import_list() {
+function open_file() {
 
     $filename = 'data/list.txt';
 
-    $filesize = filesize($filename);
+    $list = [];
 
-    $read = fopen($filename, 'r');
+    if (is_readable($filename)) {
+    
+        $filesize = filesize($filename);
+    
+        $read = fopen($filename, 'r');
+    
+        $list_string = trim(fread($read, $filesize));
+    
+        $list = explode("\n", $list_string);
+    
+        fclose($read);
+    } else {
 
-    $list_string = fread($read, $filesize);
+        echo 'File is not readable!' . PHP_EOL;
 
-    $list = explode("\n", $list_string);
+    } 
 
     return $list;
-
-    fclose($read);
 }
 
 
@@ -99,7 +108,7 @@ do {
 
     echo list_items($items);
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort items, (I)mport list, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort items, (O)pen file, s(A)ve file, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -128,11 +137,9 @@ do {
         array_shift($items);
     } elseif ($input == 'L') {
         array_pop($items);
-    } elseif ($input == 'I') {
-        $new_items = import_list();
-        foreach ($new_items as $item) {
-            array_push($items, $item);
-        }
+    } elseif ($input == 'O') {
+        $new_items = open_file();
+        $items = array_merge($items,$new_items);
     }
     
 // Exit when input is (Q)uit
