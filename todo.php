@@ -34,15 +34,16 @@ function sort_menu($array) {
         echo '(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ';
 
         $input = get_input(true);
+        $sort_mod = SORT_NATURAL | SORT_FLAG_CASE;
 
         switch ($input) {
             case 'A':
                 //sort alphabetically
-                asort($array);
+                asort($array, $sort_mod);
                 break;
             case 'Z':
                 //sort reverse alphabetically
-                arsort($array);
+                arsort($array, $sort_mod);
                 break;
             case 'O':
                 //sort by original key value
@@ -61,7 +62,7 @@ function sort_menu($array) {
 //allow user to choose to append or prepend.
 function choose_place($array, $new_Item) {
     
-    echo 'Would you like to add to the (B)eginning or the (E)nd: ';
+    echo 'Would you like to add to the (B)eginning or the (E)nd of your list? : ';
     
     $result = get_input(true);
     if($result == 'B') {
